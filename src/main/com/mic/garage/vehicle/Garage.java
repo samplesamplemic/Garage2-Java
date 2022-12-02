@@ -30,17 +30,17 @@ public final class Garage {
     public void createGarage() {
         while (true) {
 
-            //find void park if there aren't, print and break
+            //find void park if them there aren't, instance recover method;
             if (!(Arrays.asList(garage).contains(null))) {
                 System.out.println("Max parking site reached");
-                break;
+                recoverVehicle();
             }
 
             System.out.println("\nGarage\n");
             System.out.print("Available commands: search || parking || recover || exit\n");
             System.out.print("Command: ");
-
             String command = scanner.next();
+
 
             if (command.equalsIgnoreCase("parking")) {
                 System.out.println("brand: ");
@@ -61,7 +61,7 @@ public final class Garage {
                             System.out.println("Fuel (Diesel or Petrol): ");
                             fuel = Fuel.valueOf(scanner.next().toUpperCase().trim());
                             Car car = new Car(doors, fuel, id, brand, year, carEngineCapacity);
-                            searchVoidPark(car, garage);
+                            searchFirstVoidPark(car, garage);
                             System.out.println(car);
                         } catch (Exception e) {
                             System.out.println(e);
@@ -73,7 +73,7 @@ public final class Garage {
                             System.out.println("times(2 or 4): ");
                             times = Times.createTimes(scanner.nextInt());
                             Moto moto = new Moto(times, id, brand, year, carEngineCapacity);
-                            searchVoidPark(moto, garage);
+                            searchFirstVoidPark(moto, garage);
                             System.out.println(moto);
                         } catch (Exception e) {
                             System.out.println(e);
@@ -85,7 +85,7 @@ public final class Garage {
                             System.out.println("cargo capacity(kg): ");
                             cargoCapacity = CargoCapacity.createCargoCapacity(scanner.nextInt());
                             Van van = new Van(cargoCapacity, id, brand, year, carEngineCapacity);
-                            searchVoidPark(van, garage);
+                            searchFirstVoidPark(van, garage);
                             System.out.println(van.toString());
                         } catch (Exception e) {
                             System.out.println(e);
@@ -101,27 +101,7 @@ public final class Garage {
             }
 
             if (command.equalsIgnoreCase("recover")) {
-                System.out.println("To recover your vehicle insert your parking ID: ");
-                int idFromUser = scanner.nextInt();
-                for (int i = 0; i < garage.length; i++) {
-
-                    if (garage[i] == null) {
-                        System.out.println("Id not found.");
-                        continue;
-                    }
-
-                    if (garage[i].getId() == idFromUser) {
-                        System.out.println("Do you want recover this vehicle: " + garage[idFromUser].toString() + "\ny/n");
-                        String recoverAnswer = scanner.next();
-
-                        if (recoverAnswer.equalsIgnoreCase("y")) {
-                            garage[idFromUser] = null;
-                            System.out.println("Recover successful");
-                            break;
-                        }
-                        break;
-                    }
-                }
+                recoverVehicle();
             }
 
             if (command.equalsIgnoreCase("search")) {
@@ -138,8 +118,32 @@ public final class Garage {
 
     }
 
+    public void recoverVehicle() {
+        System.out.println("To recover your vehicle insert your parking ID: ");
+        int idFromUser = scanner.nextInt();
+        for (int i = 0; i < garage.length; i++) {
+
+            if (garage[i] == null) {
+                System.out.println("Id not found.");
+                break;
+            }
+
+            if (garage[i].getId() == idFromUser) {
+                System.out.println("Do you want recover this vehicle: " + garage[idFromUser].toString() + "\ny/n");
+                String recoverAnswer = scanner.next();
+
+                if (recoverAnswer.equalsIgnoreCase("y")) {
+                    garage[idFromUser] = null;
+                    System.out.println("Recover successful");
+                    break;
+                }
+                break;
+            }
+        }
+    }
+
     //iterates in sup-class array, find a void park, locate; then stop loop;
-    public void searchVoidPark(Vehicle obj, Vehicle[] garage) {
+    public void searchFirstVoidPark(Vehicle obj, Vehicle[] garage) {
         for (int i = 0; i < garage.length; i++) {
             if (garage[i] == null) {
                 garage[i] = obj;

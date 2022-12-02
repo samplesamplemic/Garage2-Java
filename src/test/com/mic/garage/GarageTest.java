@@ -11,10 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GarageTest {
 
     private Vehicle v;
+    private Vehicle[] garage;
 
     @BeforeEach
     void setUp() {
         v = new Vehicle(1, "Ford", 2006, 1300);
+        garage = new Vehicle[2];
     }
 
     @Test
@@ -61,4 +63,43 @@ public class GarageTest {
         assertEquals("The value of cargo Capacity must be positive.", exception.getMessage());
     }
 
+    @Test
+    public void testSearchFirstVoidPark() {
+        for (int i = 0; i < garage.length; i++) {
+            if (garage[i] == null) {
+                garage[i] = v;
+                v.setId(i);
+                break;
+            }
+        }
+        assertEquals(garage[0].toString(), v.toString());
+    }
+
+    @Test
+    public void testPrintGarage() {
+        garage[0] = v;
+        garage[1] = v;
+        for (Vehicle n : garage) {
+            n = v;
+        }
+        assertEquals(garage[0].toString(), v.toString());
+        assertEquals(garage[1].toString(), v.toString());
+    }
+
+    @Test
+    public void testRecoverVehicle() {
+        garage[0] = v;
+        int idFromUser = 0;
+        for (int i = 0; i < garage.length; i++) {
+            if (garage[i] == null) {
+                System.out.println("Id not found.");
+                break;
+            }
+            if (garage[i] == v) {
+                garage[idFromUser] = null;
+                break;
+            }
+        }
+        assertTrue(garage[0] == null);
+    }
 }
