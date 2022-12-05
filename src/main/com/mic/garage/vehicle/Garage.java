@@ -10,7 +10,7 @@ public final class Garage {
     //final private Vehicle[] garage;
     //constructor
 
-    //these three declaration below break the fifth SOLID principle: Dependency Inversion
+    //these three declaration below break the SOLID fifth principle: Dependency Inversion
     final private int maxSiteGarage = 6;
     final private Vehicle[] garage = new Vehicle[maxSiteGarage];
     final private Scanner scanner = new Scanner(System.in);
