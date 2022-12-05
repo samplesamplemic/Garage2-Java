@@ -14,8 +14,8 @@ public final class Garage {
     final private int maxSiteGarage = 6;
     final private Vehicle[] garage = new Vehicle[maxSiteGarage];
     final private Scanner scanner = new Scanner(System.in);
-    //General vehicle
 
+    //General vehicle
     private int id = 0;
     private String typeVehicle;
     private String brand;
