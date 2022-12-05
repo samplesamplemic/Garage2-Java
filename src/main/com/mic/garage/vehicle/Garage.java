@@ -4,9 +4,6 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public final class Garage {
-    final private Scanner scanner = new Scanner(System.in);
-    final private int maxSiteGarage = 6;
-    final private Vehicle[] garage = new Vehicle[maxSiteGarage];
     //the right way is this:
     //final private Scanner scanner;
     //final private int maxSiteGarage;
@@ -14,7 +11,11 @@ public final class Garage {
     //constructor
 
     //these three declaration below break the fifth SOLID principle: Dependency Inversion
+    final private int maxSiteGarage = 6;
+    final private Vehicle[] garage = new Vehicle[maxSiteGarage];
+    final private Scanner scanner = new Scanner(System.in);
     //General vehicle
+
     private int id = 0;
     private String typeVehicle;
     private String brand;
